@@ -27,8 +27,6 @@ For each assignment, `HW/` contains the assignment, my response containing code,
 
 - Start with HW1-Foundations.pdf, to see the assignment. 
 - Then look at my work at hw1_foundations.tex
-- 
--
 
 ---
 
