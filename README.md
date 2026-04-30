@@ -16,7 +16,7 @@ This repo is my continuing‑education portfolio for Stanford CS‑221 (Artifici
 - 'TODOs/'................concrete next tasks and assignments to do.
 - 'HW'/...................**all code and solutions**, organized by topic / assignment.
 
-For each assignment, `HW/` contains both the working code and a small `explanation.md` describing:
+For each assignment, `HW/` contains the assignment, my response containing code, and a small `explanation.md` describing:
 - What I was trying to learn.
 - Where I got stuck.
 - How I fixed it.
@@ -25,8 +25,10 @@ For each assignment, `HW/` contains both the working code and a small `explanati
 
 ## How to read this repo
 
-- Start with `HW/assignmentX/README.md` (or `HW/assignmentX/explanation.md`) alongside the code.
-- Skim the meta‑files (`lecture_questions/`, `toBeLearnt/`, `TODOs/`) to see how I plan and track progress.
+- Start with HW1-Foundations.pdf, to see the assignment. 
+- Then look at my work at hw1_foundations.tex
+- 
+-
 
 ---
 
