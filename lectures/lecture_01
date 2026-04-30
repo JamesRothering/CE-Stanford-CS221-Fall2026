@@ -1,0 +1,1507 @@
+Introduction
+[from: https://www.youtube.com/watch?v=J8Eh7RqggsU&t=3680s]
+[Syllabus with HW: https://stanford-cs221.github.io/autumn2019/#schedule]
+
+0:05
+All right. Let's get started. Please try to have a seat if you can find a seat and let's, uh, get the show on the road.
+0:14
+So welcome everyone to CS221, this is Artificial Intelligence. Uh, and if you're new to Stanford, welcome to Stanford.
+0:21
+Um, so first let's do some introductions. So I'm Percy, I'm gonna be one of your instructors. I'm teaching this class with Dorsa over there.
+0:28
+So if Dorsa wants to say hi, stand up. Hi guys, I'm Dorsa. Um, I'll be co-teaching [NOISE] this class with Percy.
+0:34
+I'm a professor in robotics and robotic interactions. Super excited about teaching this class and [inaudible].
+0:41
+Great. So we're going to be trading off throughout the quarter. And we also have a wonderful teaching team.
+0:46
+So these are your CAs. So if all the CAs could stand up and I'll give you each person an opportunity to say three words about what you're interested in.
+0:56
+So um, let's start with [inaudible] because you're the head CA. Hello. My name is [inaudible].
+1:02
+I'm a PhD student, and I'm interested in natural language processing. Yay. [LAUGHTER]
+1:07
+Hi. My name is [inaudible]. I'm a second year masters student. I'm interested in, um,
+1:13
+machine learning and data mining. Hi. I'm [inaudible]. I'm a second year masters student
+1:20
+and I'm interested in machine learning and natural language processing. Hi everyone, my name is [inaudible].
+1:33
+1:43
+masters student and I'm interested in
+2:25
+computer vision. [BACKGROUND] [NOISE] Let's go over there.
+2:37
+[BACKGROUND] [NOISE] Great. Now, any new TAs in the back? No. Well, um, well,
+2:42
+they're all on the slide. Okay. So uh, as you can see, we kind of have a very diverse team and so when
+2:49
+you're thinking about kind of final projects later in the quarter, you can tap into this incredible resource.
+2:55
+Um, so three quick announcements. Um, so there's going to be a section every week which will
+3:01
+cover both kind of review topics and also advanced, uh, uh, topics. So this Thursday there's gonna be an overview.
+3:07
+Um, if you're kinda rusty on Python or rusty on probability, come to this and we'll get you up to speed.
+3:13
+Um, homework, the first homework is out, it's posted on the website. It's due next Tuesday at 11:00 PM.
+3:19
+So remember the time, that matters. Um, all submissions will be done on Gradescope. There's gonna be a Gradescope coast- code that will be posted on, uh, Piazza.
+3:26
+So look out for that, um, later. Okay. So now let's, let's begin.
+Why AI?
+3:32
+So when I first started teaching this class, uh, seven years ago, I used to have to motivate why AI was important
+3:39
+and why if you study it you'll have a lot of impact in the world. But I feel like I don't really need to do this.
+3:44
+Now it's kind of inescapable that you pick up the news in the morning and you hear something about, you know, AI.
+3:49
+And indeed we've seen a lot of success stories, right? AIs that can play Jeopardy or play Go,
+3:55
+Dota 2, pro- even poker, all these kind of games at super human level performance.
+4:00
+It can also, you know, read documents and answer questions, do speech recognition, uh,
+4:06
+face recognition, um, even kind of medical imaging. And all these tasks are, uh, you read about how successful these,
+4:13
+uh, technologies have been. Um, and then if you take a look at outside the kind of the technical circles,
+4:18
+there's a lot of people, um, in policy, um, and trying to ask what is going on with AI.
+4:25
+And you, you hear about, uh, these kind of very, uh, broad claims of how transformative AI will be, um,
+4:31
+to the future of work and, um, to society and so on, and even some kind of bordering on, uh,
+4:36
+pretty castro- you know, catastrophic consequences. So what's gonna happen in the future,
+4:43
+no one knows, but it is fair to say that AI will be transformative.
+4:48
+Um, but how do we get here? And to do that, I wanna take a step back to the summer of 1956.
+4:56
+So the place was Dartmouth College, John McCarthy, who was then at MIT, and then,
+5:01
+uh, after that he founded the Stanford AI Lab, um, organized a workshop at Dartmouth College with, um,
+5:08
+some of the best and brightest minds of the time; Marvin Minsky, Claude Shannon, and so on.
+5:13
+And they had this not so modest goal of trying to think that every aspect of
+5:19
+learning or any feature of intelligence could be precisely captured so that a machine can be just, uh, simulated.
+5:25
+So they were after the, the big question of how do you kind of solve, um, AI. So now they didn't make that much,
+5:31
+uh, progress over the, the summer, but a lot of programs and interesting artifacts came about from that time.
+5:37
+Um, there were programs that could play checkers or prove, uh, theorems, and sometimes even better than what,
+5:43
+um, you know, the human proof will look like. Um, and there was a lot of optimism.
+5:49
+People were really, really excited, and you can see these quotes by all these excited people who proclaimed that AI would be solved in a matter of years.
+5:57
+But we know that didn't really happen and there's this kind of folklore example,
+6:02
+um, people are trying to do machine translation. So you take an English sentence like 'The spirit is willing but the flesh is weak',
+6:09
+you translate into Russian, which is what, um, the choice language by the US government was at that time, and you could,
+6:16
+uh, translate back into English; and this is what you get, 'The vodka is good but the meat is rotten'. Um, so the government didn't think that was too funny,
+6:22
+so they cut off the funding [LAUGHTER] and, um, it became the first AI winter.
+6:28
+Um, so, so there was a period where, you know, AI research was not very active and was not well- very well funded.
+6:35
+Um, so what went wrong here? Um, these were really smart people, right? Um, they just got a little maybe ahead of themselves.
+6:42
+So two problems; one is that the compute was simply not there, right?
+6:47
+It was millions or even billions of order of magnitude compared less than what we have, uh, right now.
+6:53
+And also, the problems, the way they formulate them, intrinsically relied on camp- exponential search which, um,
+6:59
+no matter how much compute you have, you're never going to, you know, um, win that race. Um, they also have limited, you know, information,
+7:06
+and this is maybe a kind of a more subtle point that if I gave you infinite compute and I asked you to translate,
+7:12
+I don't think you would be able to figure it out because it's not a computation problem. You just need to learn the language and you need to
+7:18
+experience all the subtleties of language to be able to, you know, translate [NOISE].
+7:23
+But on the other hand, AI wasn't solved, but a lot of interesting, um, contributions to computer science came out of it.
+7:30
+Lisp was- is- uh, had a lot of ideas that underlay ma- many of the high level programming languages we have,
+7:36
+garbage collection, um, time-sharing, allowing, uh, multiple people to use the same- one computer at the same time,
+7:42
+which is something that, uh, we kind of take for granted. And also this paradigm of separating what you want to compute,
+7:49
+which is modeling, and how you do it, which is inference, which we'll get to a little bit later.
+7:54
+Okay. So um, people forget quickly and, um, in the '70s and '80s,
+8:00
+there was a renewed generation of people getting excited about AI again. Um, and this time it was all about knowledge, right?
+8:07
+Knowledge is power and, um, there were a lot of expert systems which were created.
+8:13
+And the idea is that if you could encode expert's knowledge about the world, then you could do kind of amazing things,
+8:19
+and at the time the knowledge was encoded in generally a set of rules. Um, and there were a lot of programs that was written,
+8:26
+and you'll notice that the, the scope is much narrower now. The goal isn't to solve it- all of AI, but to really focus on some choice and problems like
+8:34
+diagnosing the diseases or converting customer's order parts into parts, and, uh- customer orders into parts and, uh,
+8:42
+this was the first time that AI, I think, really had a real impact on industries. So uh, people were actually able to make useful,
+8:49
+you know, products out of this. And knowledge did actually play a key ingredient in curbing this, you know, exponential growth that people were worried about.
+8:57
+But of course, um, it didn't last long. Um, knowledge as deterministic rules was simply
+9:03
+not rich enough to capture all the kind of nuances of the world. It required a lot of manual effort to maintain and, um, again, um,
+9:12
+a pattern of over-promising and under-delivering that seems to plague, um, AI people, led to the collapse of the field and the kind of a second AI winter.
+9:23
+Um, okay, so that's not the end of the story either. But actually it's not kind of really the beginning either.
+9:31
+Um, so I'm going to step back further in time to 1943. So what happened in 1943?
+9:38
+So there was, um, a neuroscientist, McCulloch; and logician, Pitts,
+9:43
+who were wondering and marveling at how the human brain is able to do all of these kind of complicated things.
+9:50
+And they wanted to kind of formulate a theory about how this could all happen. So they developed a theory of,
+9:55
+um, artificial neural networks, um, and this is kind of you can think about the root as of,
+10:01
+you know, deep learning in some sense. Um, and what's interesting is that they looked at, um,
+10:07
+neurons and logic, which are two things that you might not kind of necessarily associate with each other, and showed how they were kind of connected mathematically.
+10:15
+And a lot of that early work in this era were of- around artificial neural networks, was about studying them kinda from a mathematical perspective.
+10:23
+Um, because at that time, the compute wasn't there, you couldn't really run any kind of training new models or um.
+10:30
+And then 1969, something interesting happened. So there's this book by Minsky and Papert called Perceptrons.
+10:36
+And this book did a lot of mathematical analysis. And it also showed that linear models, one of the results of many,
+10:44
+was showing that linear classifiers couldn't solve the XOR problem. Um, the problem is- another way to think about the problem is basically given two inputs,
+10:53
+can you tell whether they are the same or not, or different. And, um, so it's kind of not a-
+10:59
+shouldn't be a hard problem but linear classifiers can do it. And for some reason,
+11:04
+which I don't quite understand, it killed off neural nets research even though they had said nothing about if you had a deeper network, what it could do.
+11:11
+Um, but it's often cited that this book, ah, swung things from people who were interested in
+11:17
+neural networks to the field of AI being very symbolic and logic driven. Um, but there was always this kinda minority group, um,
+11:26
+who were really invested in and believed in, um, the power of neural networks, and I think this was always just kind of a matter of time.
+11:33
+So in the '80s, there was a renewed interest. Um, people kind of discovered or
+11:39
+rediscovered the backpropagation algorithm which allowed a kind of, for a generic algorithm that could train these multilayer neural networks
+11:46
+because single layer remember was insufficient to do a lot of things. And then one of the kind of the early success stories,
+11:53
+as Yann LeCun in 1989, applied a convolutional neural network and
+11:58
+was able to recognize hand digit- written digits, and this actually got deployed, um,
+12:03
+by the USPS and was reading kind of zip codes. Um, so this was, you know, great, ah,
+12:09
+but it wasn't until this decade that the, um, this area of neural networks really kind of took off,
+12:15
+um, under the moniker deep learning. Um, and, you know, AlexNet in 2012 was kind of a huge transformation, um,
+12:24
+where they show gains on the, kind of ImageNet ba- benchmark and overnight transformed the computer vision community.
+12:30
+Um, AlphaGo as, you know, many of you know, and many kind of other, um, and there were kind of the rest is history.
+12:37
+Okay, so- so there's this kind of two intellectual traditions.
+12:42
+Um, you know, the name AI has always been associated with the kind of John McCarthy logical tradition,
+12:48
+that's kind of where it started. But, um, as you can see that there is also kind of this neuroscience inspired tradition of AI,
+12:55
+and the two are kind of really had some deep philosophical differences and over the decades fought with each other kind of quite a bit.
+13:02
+But I want to pause for a moment and really think about, [NOISE] maybe if there were actually kind of deeper connections here.
+13:08
+Remember McCulloch and Pitts, they were studying artificial and neural networks, but the connection was to logic, right?
+13:15
+So from even in the very beginning, there is kind of this synergy that, you know, some- some people can kind of often overlook.
+13:22
+And if you take a look at AlphaGo, which [NOISE] if you think about the game of Go or many games, it's a mathematically, you can write down the rules of Go in logic in just a few lines.
+13:33
+So it's a mathematically well-defined logical- logic puzzle in some sense. But somehow, the- the power of neural networks
+13:40
+allows you to develop these models that actually play Go really- really well. So this is kinda one of the deep mysteries that has, kind of,
+13:49
+uh, I think is kind of o- opens standard challenge, you know, in AI. Um, as with any story it's not a full picture,
+13:59
+and I want to point out on this slide that, AI has drawn from a lot of different, you know,
+14:05
+fields, many of the techniques that we're gonna look at, for example, maximum likelihood, came from your statistics or games came from economics, optimizations,
+14:14
+gradient descent, hence from- was, you know, in the '50s completely unrelated to AI.
+14:20
+But these techniques kind of developed in a different context. And so AI is kind of like,
+14:25
+you know, it's kind of like a New York City. It's- it's like a melting pot where a lot of the- these
+14:31
+techniques that kind of unified and apply to kind of interesting problems. And that's what makes it, I think really interesting
+14:37
+because of the- the new [NOISE] avenues that are opened up by kind of unique combinations of, um, existing techniques.
+14:47
+Okay, so- so that was a really bre- brief history of, you know, where- how we got here.
+14:53
+Um, now I want to pause for a moment and think about, you know, what is- what is the goal?
+14:58
+What- what AI people are trying to do? And again this- this is kind of there's two ways to think about
+15:03
+this which and- sometimes the conflation of these causes a lot of confusion.
+15:09
+Um, so I like to think about it as AI as agents, and AI as tools.
+AI as Agents
+15:15
+So the first view asks the kind of standard question of, how can we create or recreate intelligence?
+15:23
+And the second one asked, you know, how can we use technology to kind of benefit, you know, society? [NOISE] And these two are obviously very related and they have, ah,
+15:31
+a lot of shared technical, um, overlap, but, you know, philosophically they're kind of different.
+15:39
+So let me kind of explain this a little bit. So the idea with AI agents is, and this is, I think a lot of what,
+15:46
+um, um, gets associated with AI, um, and especially as, you know, with science fiction.
+15:51
+That kind of, ah, po- portrayal certainly kind of encourages this kinda view where [NOISE] you're human- we're human beings.
+15:59
+And what you do is you look in the mirror and you say, wow, that's must- that's a really smart person.
+16:05
+And you think okay, how- how- what- what- what can humans do that is, you know, so amazing.
+16:11
+Well, they can, um, they can see and they can perceive the world, recognize objects. Um, they can grasp cups and drink water and not spill it.
+16:20
+[NOISE] Um, they can communicate using language as I'm doing to you right now.
+16:26
+Um, we know facts about the world, [NOISE] declarative knowledge such as what's the capital of France and procedural knowledge like how to ride a bike.
+16:33
+We can reason with this knowledge and maybe ride a bike to the capital of France. And then, really importantly,
+16:40
+we're not born with all of this, right? We're born with basically nothing, none of these capabilities,
+16:46
+but we are born with the capacity and potential to acquire these over time through experience.
+16:52
+And learning it seems to be kind of this critical ingredient, which drives a lot of the success in AI today but also with,
+16:59
+um, you, know, human intelligence it's clear that learning plays such a central role in getting us to the level that we're operating at.
+17:06
+So each of these areas has kind of spawned entire sub-fields, and people in it are kind of wondering about how you
+17:13
+can make artificial systems that have the language, or the motor, or the visual perceptual capabilities that, you know, humans have.
+17:24
+But are we there yet? Um, and I would- I would like to think that we are, ah, very far.
+17:31
+So if you look at the way that machines are, have been successful, it's all with a narrow set of tasks and, you know,
+17:39
+millions or billions of examples, and you just crunch a lot of computation, and you can really kind of optimize,
+17:46
+um, every- any tasks that you're going to come-come up with. Whereas humans operate in a very different regime.
+17:53
+[NOISE] They don't necessarily do any, you know, one thing well, but they are have such a kind of
+17:59
+diverse set of, you know, experiences, can solve a diverse set of tasks and learn from each individual tasks from very few examples.
+18:08
+And still it's a kind of a grand challenge, in from a, uh, cognitive perspective, how you can build systems with this level of capability in that humans have.
+AI Tools
+18:20
+So the other view is, you know, AI tools. Basically we say okay well, you know,
+18:26
+it's kind of cool to think about how we can, uh, you know, recreate intelligence. But, you know, we don't really care about making more,
+18:34
+um, things like humans. We already have a way of, you know, doing that, that's called babies.
+18:40
+[LAUGHTER]. Um, so when instead what we'd really like to do is not making something that's like a human but making systems that help humans.
+18:47
+Because, you know, after all, we're- we're humans, I guess it's a little bit selfish but, um, we're in charge right now.
+18:53
+Um, and- and a lot of this- this view and a lot of the success stories in AI are really different from the things that you expect,
+19:01
+you know, this, uh, this humanoid robot to come into your house and be able to do. For example this is a project from Stefano Ermon's group.
+19:08
+Um, there's a lot of poverty in the world and, um, part of it is- is just kind of understanding
+19:13
+what's- what's going on and they had this idea of using, uh, computer vision on satellite imagery to predict things like,
+19:20
+you know p-, uh, GDP. Um, so this is obviously not a task that, you know,
+19:26
+the- our ancestors in Africa were like, you know, getting really good at. Um, but nonetheless it uses
+19:31
+convolutional neural networks which is a technique that was inspired by, um, you know the brain and so that's- that's kind of interesting.
+19:39
+Um, you can also have another application for saving energy by trying to figure out when to cool on datacenters.
+19:47
+Um, as AI, is, uh, being deployed in more kind of mission critical s-, uh, situations such as self-driving cars or authentication.
+19:55
+There are- there are a f- few th- new issues that come up. So for example, there are- thi- this phenomenon called adversarial examples,
+20:04
+um, where you can take, um, these cool-looking glasses,
+20:09
+you can put them on your face, and you can fool the computer, um,
+20:15
+as- of- save our- our face recognition system to think that you're actually, you know, someone else.
+20:21
+Um, or you can post these, uh, s- stickers on stop signs and you'd get this,
+20:26
+uh- s- save our system to think that it's a, um, a speed limit sign. So there's obviously- there's- clearly these are, you know,
+20:34
+big problems if we think about that the widespread deploy- deployment of AI. Um, there's also a less catastrophically but also p- pretty, um,
+Biases
+20:43
+you know, upsetting which is, uh, biases that you- many of you probably have read in the news about.
+20:50
+So for example, if you take Malay which is a language that, uh, doesn't distinguish, um, in this writing form between he and she and you stick it into Google Translate.
+21:00
+Um, you see that she works as a nurse but he works as a programmer, which is encoding certain, uh, societal biases, um,
+21:07
+in the actual models. And one kind of an important point I wanna bring up is that,
+21:12
+you know, it's -- it's how is machine learning and AI kinda working today? Well, it's, um, you know, society exists.
+21:20
+Society is generating a lot of data. We're training on this data, and kind of trying to fit the data and try and mimic
+21:26
+what it's doing and then using predictions on it. What could possibly go wrong, right? Um, and so- so certainly people- a lot of people have been thinking about, um,
+21:35
+how these biases are kind of creeping up and is an open and active area of research.
+21:40
+Something a little bit more, uh, kind of s- sensitive is, you know, asking well, these systems are being deployed to
+21:49
+all these- all these people whether they kinda want it or- or want it or not. Um, and this, uh, this actually touches on,
+21:56
+you know, people's, uh, you know, livelihoods. It actually impacts people's lives in a serious way. Um, so Northpointe was this company that developed a- a software called
+22:05
+COMPAS that tries to predict how risky, um, criminal risk or how someone- how risky someone is essentially.
+22:13
+Um, and ProPublica this organization realized whoa, whoa, whoa, whoa. You have this system that, uh,
+22:20
+given an individual didn't reoffend is actually, um, more- twice as likely to classify blacks as incorrectly as, you know, non-blacks.
+22:28
+So this is, uh, seems pretty problematic. And then Northpointe comes back and says actually,
+22:34
+you know, I think we- I think we're being fair. Um, so given a risk score of 7, uh,
+22:39
+we were fair because 60% of whites reoffended and 60% of blacks reoffended. Um, the- the point here is that there's- there's- there's actually no,
+22:51
+um, solution to this in some sense sadly. Um, so people are finding or formulating different notions
+22:57
+of fairness and equality between, um, how you predict or record it on different kind of, um, groups.
+23:03
+But, um, or you can have different notions of fairness and which all seem reasonable from first principles but mathematically they can be,
+23:13
+um, incompatible with each other. So this is- this is again an open area of research where we're trying to figure out as a society how,
+23:21
+um, to deal with the schema that machine learning might be using these in kind of critical situations.
+Summary
+23:28
+Okay. So summary so far, um, there's an agent's view.
+23:34
+Um, we're trying to really kind of dream and think about how do you get
+23:39
+these capabilities like learning from very few examples that humans have into,
+23:45
+you know, machines and a whole- maybe opening up a kind of a- a different set of technical capabilities.
+23:51
+But at the same time, and we really need to be thinking about how these AI systems are affecting the real world.
+23:59
+And things like security, and biases, and fairness all kind of show up.
+24:04
+It's also interesting to note that, you know, a lot of the challenges in deployment of an
+24:09
+AI system don't really have necessarily to do with, um, you know, humans at all.
+24:14
+I mean, humans are incredibly biased but that doesn't mean we want to build systems kind of in our- in,
+24:21
+um, that mimic humans and kind of inherit all the kind of the flaws that humans have.
+24:28
+Okay. Any questions about this? Maybe I'll pause for a moment.
+24:48
+So let's go on. Um, so what I wanna do next
+24:53
+is give an overview of the different topics, um, in the course. Um, and the way to think about all this is that,
+25:04
+um, in AI we're trying to solve really complex problems. The real world is really complicated.
+25:10
+And- but at the end of the day we want to produce some software or maybe some hardware that actually runs and does stuff, right?
+25:18
+And so there's a very considerable gap between these things. And so how do you even approach something like self-driving cars or,
+25:26
+um, you know, d- diagnosing diseases? You probably shouldn't just like go sit down at a terminal and start typing because then,
+25:34
+um, there- there's no kind of- no overarching structure. So what this class is going to do is to give you one example of
+25:42
+a structure which will hopefully help you approach hard problems, and think about how to solve them in a kind of more principled way.
+25:50
+Um, so this is a paradigm that I call the, um, modeling inference and learning paradigm.
+25:56
+Um, so the idea here is that there's three pillars which I'll explain in a bit.
+26:08
+And, uh, we can focus on each one of these things kind of in turn.
+26:14
+So the first pillar is modeling. So what is modeling? The modeling is taking the real world,
+26:20
+which is really complicated and building a model out of it. So what is a model? Model is a simplification that is mathematically precise so that you can,
+26:29
+you know, do something with it, uh, on a computer. Um, one of the things that's necessary is that modeling, um,
+26:36
+necessarily has to simplify things and, you know, throw away information. Um, so one of the kind of,
+26:42
+uh, the, you know, the art is to figure out what information to pay attention to and what information to keep.
+26:48
+Um, so this is going to be important for example when you work on your final projects and you have a real world problem, you need to figure out, um,
+26:55
+you can't have everything and you have to figure out judiciously how to, um, manage your- your resources.
+27:01
+So here's an example. If you want to for example build a- a system that can find, uh,
+27:07
+the best way to get from point A to point B in a graph- in a- in a city you can formulate the model as a- a graph where nodes are points in the city,
+27:16
+and edges rep- represent ab- ability to go between these points with some sort of cost,
+27:22
+um, on the edges. Okay. So now once you have your model you can do, uh, inference.
+27:31
+And what inference means is asking questions about your model. So here's a model you can ask for example how- what is the shortest path from,
+27:40
+um, this point, uh, to this point. Right. And that's because now your model land is a mathematically well-defined, uh,
+27:49
+problem now you can- it's within the realm of, uh, you know, deve- developing algorithms to,
+27:55
+you know, solve that problem. And most of the inference is ki- being able to do these computations, um, really efficiently.
+28:03
+And finally learning addresses the problem, where does this model come from?
+28:09
+So in any kind of realistic setting, um, the model might have a lot of parameters.
+28:16
+Maybe it has, you know, millions of parameters and how do you s- if it- if it- wants to be faithful to the,
+28:22
+you know, real world that how do you get all this, uh, information there. Um, manually p- encoding this information turns out not to be a good idea.
+28:30
+This is, um, in some sense what, um, AI from the '80s was trying to do.
+28:36
+Um, so the learning paradigm is as follows. What we're gonna do is specify a model without parameters.
+28:44
+Think about it as a skeleton. So in this case we have a graph but we don't know what the edge weights are.
+28:50
+Um, and now we have some data. So maybe we have data of the form people tried
+28:57
+to go from X to Y and they took 10 minutes, or an hour, or so on, um,
+29:02
+and then from this data we can learn to fit the parameters of the model. We can assign, um,
+29:07
+costs to the edges that kind of are representative of what the data is telling us, okay?
+29:13
+So now in this way, we can write down a model without parameters, feed the data, apply a generic learning algorithm and get a model with parameters.
+29:22
+And now we can go back and do, um, inference and ask questions, you know, about this.
+29:27
+Okay. So this is kind of the- the- the paradigm. And I want to really emphasize that, you know,
+29:33
+learning is not- as I've presented is really not about any one particular algorithm like nearest neighbors or neural networks.
+29:42
+It's really a kind of a philosophy of how you go about approaching problems by defining a model and then not
+29:48
+having to specify all the details but filling them in later. Okay. So here is the plan for the course.
+29:58
+We're gonna go from low-level intelligence to high-level intelligence; and this is the intelligence of,
+30:05
+um, of the, of the models that we're gonna be talking about. So first we're gonna talk about machine learning,
+30:11
+and like I've kind of alluded to earlier, machine learning is going to be such a kind of an important building block
+30:17
+of- that can be applied to any of the models that we kind of develop. So the central tenet in machine learning is you have data and you go to model,
+30:27
+its main driver of a lot of su- successes in AI because it allows you to,
+30:33
+in software engineering terms, move the complexity from code to data. Rather than having, you know,
+30:38
+a million lines of code which is unmanageable, you have a lot of data which is collected in kind of
+30:44
+a more natural way and a smaller amount of code that can operate on this data and this paradigm has really been,
+30:50
+it's really been powerful. One thing to think about in terms of machine learning is that it,
+30:55
+it is, requires a leap of faith, right. So you can go through the mechanics of down- downloading some machine learning code
+31:04
+and you train them all but fundamentally it's about generalization, right. You have your data,
+31:10
+you fit a model, uh, but you don't care about how it performs on that data; you care about how it performs on new experiences.
+31:16
+And that leap of faith is something that's, um, I think gives machine learning its power but it's also a little bit,
+31:23
+um, at first glance perhaps magical. Um, it turns out you can actually formalize a lot of this using,
+31:29
+um, probability theory and, and statistics but that's kind of a topic for another time.
+31:35
+Okay. So after we talk about machine learning, we're going to go back and talk about the, the simplest of models, right.
+31:43
+So a reflex model is this. So here's a quiz. Okay. What is this animal? Okay, zebra.
+31:51
+How did you get it so fast? Well, it's kind of a reflex, where your human visual system is so good,
+31:56
+um, at, at doing these things without thinking. Um, and so reflex models are these, um,
+32:03
+are models which just require a fixed set of computations. So examples like are linear classifiers,
+32:09
+deep neural networks, um, and most of these models are the ones that people in machine learning um, use.
+32:15
+Models is almost synonymous with, um, reflex on- in machine learning. The important thing that there's no feed for it.
+32:21
+It just like you get your input bam, bam, bam, and here's your output. Okay, so that's, that's great because it's fast.
+32:28
+But there's some problems that require a little bit more than that. Right. So for example here's another problem.
+32:35
+Okay, quick, white to move. Where does she go? Okay, there's, there's probably like a few of you who are like chess geniuses,
+32:42
+um, but for the rest of us, um, I have no idea. I don't know, wait, who's moving again? Um, so, so in these kind of situations,
+32:51
+we need something perhaps a little bit more powerful than a reflex. We need agents that can kind of plan and think, um, ahead.
+32:57
+So the idea behind state-based models is that we model the world as a set of states which capture any given situation like, uh,
+33:04
+a position in a, in a game and actions that take us between states which correspond to things that,
+33:12
+um, you can do in the, in this game. Um, so a lot of game applications fall in this as
+33:18
+category of robotics, motion planning, navigation. Um, also some things that are might not be- you might think of,
+33:25
+um, planning as such as gen- you know, generation, um. In natural language or generating an image,
+33:31
+um, you are, uh, can be cast in this way as well. So there's three types of state-based models each of which we'll cover in,
+33:39
+um, you know weeks of time. So search problems are the classic, uh, you control everything so you're just trying to fi- find the optimal path.
+33:46
+There are cases where there's randomness. For example if you're trying to go from point A to point B, maybe there's traffic that you don't,
+33:52
+you know, don't know about or, um, in a game there might be dice that are- die which are rolled, and, uh,
+33:58
+there's a third category which are adversarial games which is cases where your playing an opponent who's actively trying to destroy you.
+34:05
+So what are you gonna do about it? Um, so one of the games that we're gonna, uh, be talking about, uh,
+PacMan
+34:11
+when we talk about games is Pac-Man; and one of the assignments is, um, actually building, um, a Pac-Man agent such as this.
+34:20
+So, uh, while you're looking at this, think about how- what are the states and what are the actions and how would you go
+34:26
+about you know devising a strategy for Pac-Man to eat all the dots and avoid all the ghosts? So that's something, uh,
+34:32
+to maybe look forward to. There's also gonna be a competition. So we'll see how- who ends up at the top.
+34:38
+Okay, so state-based models, um, are very powerful and a value to kind of have foresight.
+34:46
+Um, but some problems are not really most naturally cast as state-based models. For example, you know, how many of you play Sudoku or have played it before?
+34:54
+So as the goal of Sudoku is to fill in these, uh, um, blanks with numbers so that, um,
+35:01
+every row and column and three-by-three sub-block has the digits 1 through 9. So there's a bunch of constraints. Um, and there's no kind of sense in which you have to do it in a certain order, right.
+35:12
+Whereas the, the order in how you move in chess or something is,
+35:17
+you know, pretty important. Um, so, so these type of problems, uh,
+35:22
+are captured by these variable-based models where you kind of think about
+35:28
+a solution to the problem as an assignment to the individual variables, under some constraints.
+35:34
+So constraint satisfaction problems, we'll spent a week on that, um, these are hard constraints. For example two people can be- or
+35:41
+a person can't be in the two places at once for example. Uh, there's also Bayesian networks which we'll talk about which
+35:47
+are variable-based models with, uh, soft dependencies. For example if you're trying to track, um, you know,
+35:53
+a car over time, these are the positions of the car. These variables represent the position of the cars and these,
+36:01
+uh, E's represent, uh, the- the sensor readings of the position of the car at that particular position
+36:08
+and inference looks like trying to figure out where the car was given all this kind of noisy sensor reading.
+36:15
+So that's also gonna be another assignment where you're going to deal with. Okay. So finally, um, now we get to high-level.
+36:22
+What's- so what is high-level intelligence here? Um, and I put logic here, um, for a reason that you'll see clear. Yeah, is there a question?
+36:30
+The Sudoku, can you explain why it's not a state-based model? Yeah, so the question is why is not
+36:36
+the- why is the Sudoku problem not a state-based model? Um, you can actually formulate this as a state-based model,
+36:43
+um, by just thinking about the sequence of, uh, assignments. But it turns out that, um,
+36:49
+you can formulate in a kind of more natural way as a variable-based model which allows you to,
+36:55
+uh, take advantage of some kind of more efficient algorithm to solve it. Right, it's- think about these models as kind of different,
+37:02
+um, analogy as like a programming language. So yes, you could write everything in you know C++ but sometimes writing in you know, Python or,
+37:11
+or SQL for some things might be more- might be easier.
+37:16
+Yeah. [inaudible] state based problem where you have both adversarial elements and an element of randomness?
+37:22
+Yeah, so the question is how do you categorize state-based models where there is both randomness and an adversary?
+37:27
+Um, we're also gonna talk about those as well. Um, and those would be- I,
+37:34
+I would classify them as adversarial but there is also a random component that you have to deal with, games like backgammon. Yeah, question.
+37:41
+[inaudible]
+37:58
+Yeah, so the question is about whether, uh, some of these are more continuous and some of them are more discrete.
+38:04
+Uh, I don't necessarily think of, uh, so a lot of the reflex models actually can work
+38:10
+in continuous state spaces, for example images. Um, actually it's, it's almost a little bit of the opposite where, um,
+38:17
+the logic-based models are in some sense more, you know, discrete but you can also have continuous elements,
+38:22
+you know, in there, um, as well. Um, so in this class, we're mostly going to focus on kind of discrete objects
+38:28
+because they're just going to be simpler to work with. Okay, so what is this logic?
+38:36
+So the motivation here is that suppose you, um, wanted a little companion who, um,
+38:43
+you could boss around and, um, help or help you do things, let's say; that's a better way to say it.
+38:49
+Um, so you'd like to be able to say okay, you know, tell us some information, um,
+38:54
+and then later you wanna be able to ask some questions and have the system be able to reply to you.
+39:01
+Um, so, um, you know how- how would you go about doing this?
+39:06
+One way you could think about is building a system that you can actually talk to using natural language, okay.
+39:13
+So I'm actually going to show you a, a little demo, um, which, uh, is going to come up in the last assignment on logic;
+39:20
+um, and well, let's see what you think about it.
+39:25
+Uh, okay, so this is going to be a system that is, um, based on logic that I'm going to,
+39:33
+um, tell the system a bunch of things and I'm going to ask some questions. So, um, I want you all to follow along and you see if you can,
+39:40
+you know, play the role of the agents. Okay. So I'm going to teach you a few things like, um, Alice is a student, okay.
+39:48
+So it says I learned something. Now let's, let's quiz, um, is Alice a student?
+39:54
+Okay. Good. So that worked. Um, is Bob a student?
+40:00
+What should the answer be? I don't know who's Bob. Um, okay. So now let's do, um,
+40:07
+students are, uh, people. Um, Alice is not a person.
+40:16
+I don't buy that [LAUGHTER] okay. So, um, okay it's, you know, it's doing some reasoning, right?
+40:22
+It's using logic, it's not, uh, just, um. Okay. So now, let's do, um,
+40:28
+Alice is from Phoenix. Phoenix is a hot city.
+40:34
+I know because I've lived there. Um, cities are places, and if it is snowing,
+40:43
+uh, it is, um, then it is cold. Okay, got it. So, um,
+40:51
+is it snowing? I don't know.
+40:57
+Um, so how about this? Okay. So if, um, a person is from a hot place and it is cold,
+41:05
+then she is not happy, okay. True. Right, um.
+41:11
+I guess those of you who have spent all your live in California would maybe appreciate this. But, um, okay, so ho- is it snowing now?
+41:21
+How many of you say yeah, it's snowing? How many say no? You don't know? Okay.
+41:27
+[inaudible] Ah, ah, [LAUGHTER] um, how about if I say Alice is, ah, happy.
+41:39
+Okay, so is it snowing now? No, it should be no. Okay. So you,
+41:44
+you guys were able to do this. Okay. So this is kind of an example of a interaction which, um,
+41:49
+if you think about it has is ve- very different from where you would see kind of in a typical,
+41:56
+um, you know, ML system where you have to show it millions of examples of one particular thing and it can do a kind of one task.
+42:02
+This is much more of a very open-ended set of, um, I wish to say that the,
+42:10
+the experiences are super rich but they're definitely diverse. I teach- I just give one statement.
+42:15
+I say it once and then all of a sudden it has all the ramifications and kind of consequences that
+42:21
+built in and it kind of understands in a kind of a deeper level. Of course this is based on, you know, logic systems.
+42:27
+Um, so it is brittle but this is kind of just a proof of concept to give you a taste of what I mean when I say logic.
+42:35
+So, ah, these systems need to be able to digest this heterogeneous information and reason deeply with that information.
+42:42
+And we'll see kind of how, um, logic systems can do that. Okay. So that completes the tour of the topics of this class.
+42:53
+Um, now I want to spend a little bit of time on course logistics.
+42:58
+Uh, so I wanna- all the details here are online.
+43:03
+So I'm not going to be complete in my coverage, um, but I just wanna give you a general sense of what's going on here.
+43:10
+Okay. So what are we trying to do in this course? Um, so prerequisites, um,
+Perquisites, Homework, Exams
+43:17
+there's programming, um, discrete math and, ah, probability.
+43:22
+So you need t be able to code and you need to be able to, um, do some math and, uh, some kind of basic proofs.
+43:29
+Right? So these are the classes that are, um, required or at least recommended that you-
+43:34
+or if you have some equivalent experience that's, you know, fine too. Um, and what we- what should you hope to get out of this course?
+43:41
+Right. So one had- the course is meant to be giving you a set of tools using the modeling inference learning paradigm.
+43:50
+It gives you a set of tools and a way of thinking about problems that hopefully will be really useful for you when you go
+43:56
+out in the world and try to solve real world problems. Um, and also by- as a side product I also want all of you
+44:02
+to be more proficient at your math and programming because those are kind of the core elements that,
+44:08
+ah, enable you to do kind of interesting, you know, things in AI. So a lot of AI and you, you read about it,
+44:14
+it's very flashy but really the foundations are still, um, just you know math and programming in some sense.
+44:22
+Okay. So the coursework is homeworks, exam, and a project.
+44:27
+That's what you have to do, um, Homeworks, there's eight homeworks. Each homework is a mix of writing- written and programming problems centered on
+44:34
+a particular application covering one particular type of model essentially. Um, like I mentioned before there's a competition for extra credit.
+44:41
+There's also some extra credit problems in the, in the homeworks, um, and when you submit code,
+44:49
+we're gonna run- we have an auto-grader that runs. It's gonna run on all the test cases but you get a feedback of only a subset.
+44:55
+So you can, um, it's like, you know, in machine learning, you have a train set, and you have a test set.
+45:00
+So don't train on your test set. [LAUGHTER] Okay. So um, the exam is,
+45:08
+ah, testing your ability to use the knowledge that you learn to solve new problems.
+45:13
+Right. So there's, um, I think it's worth taking a look at exam because this, this kind of surprises people every- the exam is
+45:20
+a little bit different than the types of problems that you see on, on the homework and there are kind of more problem, you know, solving.
+45:27
+So the exam isn't going to be like a multiple choice like, okay, you know, um, you know, when was Perceptrons published or something like that.
+45:37
+It's gonna be, here's a real life problem. How do you model it and how do you come up with a solution?
+45:42
+Um, they're all going to be written. It's closed book except for you have a one page of notes and this is a great opportunity to actually,
+45:49
+um, review all the material and actually learn the ah, the content in the class.
+45:54
+Um, so the project I think is a, a really good opportunity to take
+46:01
+all the things that we've been talking about in the class and, um, try to find something you really care about and try to apply it.
+46:09
+Work in groups of three and I really recommend finding a group early,
+46:14
+um, and as I emphasize it's your responsibility to find, you know, a good group. Right? Um, don't come to us later like one week before the project deadline and say,
+46:24
+"Oh, you know, my group members they, um, they ditched me," or something. We really try to,
+46:30
+try to nail this down use Piazza to- or your other social networks to find a good group.
+46:36
+So throughout the quarter there's going to be these milestones for the projects. So, um, to prevent you guys from procrastinating into the very end, um,
+46:44
+so there's gonna be a proposal where you try and brainstorm some ideas, progress report, a poster session which is actually a whole week before the final report is due,
+46:52
+um, and the project is very open. So this can be, um, really liberating but also might be a little bit daunting.
+47:00
+Um, we will hopefully give you a lot of structure in terms of saying okay, how do you define your task?
+47:06
+How do you implement different, um, baselines or oracles? Which I'll explain later. How do you evaluate? How do you,
+47:12
+um, analyze what you've done? And each of you will- each project group will be assigned a CA mentor,
+47:18
+ah, to help you, ah, through the process and you're always welcome to come to my office hours or Dorsa's, or any of the CAs to get additional, um,
+47:26
+help either brainstorming or figuring out what the next step is. Ah, some policies, ah,
+47:34
+all assignments will be submitted on Gradescope, um, there are seven total late days
+47:39
+you can use, and most two per assignment. After that there's no credit. Um, ah, we're gonna use Piazza for all communication so don't email us directly.
+47:48
+Leave a post on Piazza. If- I encourage you to make it public if it's, it's not sensitive, but if it's, you know,
+47:55
+personal, then obviously make it private, um, and try to help each other. We'll actually award some extra credit for students who help answer,
+48:04
+um, other student's questions. So all of the details are on the course website.
+48:09
+Okay. So one last thing and it's really important and that's the Honor Code.
+48:14
+Okay. So especially if you're, um, you know, you've probably heard this if you've been at Stanford.
+48:20
+If you haven't, then I wanna really kind of make this clear. So I encourage you all to have- collaborate, discuss together.
+48:29
+But when you- when it comes to actually the homeworks, you have to write up your homework and code it independently.
+48:36
+So you shouldn't be looking at someone's writeup. You shouldn't be looking at their code. Um, and you definitely shouldn't be copying code off of GitHub.
+48:45
+Um, um, that's hopefully should be, you know, obvious and maybe less obvious, you should not- please do not post your homework assignments on GitHub.
+48:54
+I know you're probably proud of the fact that your Pac-Man agent is doing really well but please don't post on GitHub because then that's going to be our Honor Code violation.
+49:03
+Um, when debugging, um, with- if you're working together,
+49:08
+it's fine to as long as it's kind of looking at input-output behavior so you can say to your partner,
+49:13
+"Hey, I put in this, um, input to my test case and I'm getting a 3. What are you getting?" So that's fine but you can't.
+49:20
+Remember don't look at each other's code. Um, and to enforce this, we're gonna be running MOSS,
+49:25
+which is a software program that looks for code duplication, um, to, to make sure that,
+49:32
+ah, the rules are being followed and, you know, changing one variable name is- or you'll be so- anyway enough said.
+49:39
+[LAUGHTER] Just don't, don't, don't do that. Okay? Any questions about this?
+49:45
+I wanna make sure this is important or about any of those logistics. Yeah. [inaudible] The final project, ah,
+49:51
+you can put on GitHub. Yeah.
+49:59
+Yeah. Yeah, private GitHub repos,
+50:04
+uh, is fine. Yeah, question in the back?
+50:10
+Is it necessary to have a group or can you do a solo project? Uh, the question is can you,
+50:16
+can you do a solo project? You can do a solo project, you can do a project with two people, or you can do a project with three.
+50:22
+I would encourage you to try to work in, uh, groups of three because you'll be able to do more as a group,
+50:31
+and there is definitely, uh, you know, it, it, it's not like if you do a solo project we'll be expecting like one third of the, the work.
+50:39
+So okay. Anything else? All right.
+50:48
+Okay. So in the fi- final section, I want to actually delve into s- some technical details.
+50:56
+Um, and one thing we're going to focus on right now is, um, the, kind of inference and learning components of, of this course.
+51:06
+So I'm going to talk about how you can approach these through the lens of, you know, optimization.
+51:12
+So this is going to be, uh, it might be a review for some of you but hopefully, it's gonna be a, a good,
+51:17
+um, you know, way to get everyone on the same page. Okay. So what is optimization?
+51:24
+There's two flavors of optimization that we care about. There's, uh, Discrete Optimization, where you're trying to find the best, uh, discrete object.
+51:31
+For example, you're trying to find the best, uh, path or the path P that minimizes the cost of that path.
+51:39
+Um, we're going to talk about one algorithmic tool, um,
+51:44
+based on Dynamic Programming which is a very powerful way of solving these, um, complex optimization problems.
+51:51
+Um, and the key, you know, property here is that the set of paths is huge and you can't just,
+51:58
+uh, trial them and compute the cost and choose the best one. So you gonna have to choose something clever.
+52:04
+The second brand of optimization is continuous optimization and formally this is just
+52:11
+finding the best of vector of real numbers that satisfies or minimizes some objective function.
+52:18
+So a typical place this shows up is in learning where you define, uh, objective function like the training error and you're trying to
+52:26
+find a weight vector W. So this notation just means it's a list of numbers, D numbers that minimizes the training error.
+52:33
+And we're going to show that gradient descent is, uh, uh, easy and a surprisingly effective way of solving these,
+52:42
+um, continuous optimization problems. Okay. So to introduce these two ideas,
+52:48
+I'm going to look at two, um, problems and trying to kind of work through them. So this might be also a good, um, you know,
+52:56
+way to think about how you might go approach a, you know, homework problems.
+53:01
+And I'll try to kind of talk you through this, um, in a bit more detail. Okay, so the first problem is,
+53:07
+um, you know, computing edit distance. Um, and this might not look,
+53:13
+you know, like an AI problem, but a lot of, ah, AI problems have this as kind of a, you know, building block if you wanted to do some sort of matching between,
+53:21
+um, you know, two words or two, um, biological sequences. So the input is you're given two strings.
+53:28
+Um, we're gonna start writing over here on the board just to work this out.
+53:33
+So given two strings, um, S and T. Um, so for example, um,
+53:40
+a cat and um, the cats.
+53:45
+Okay. So these are two strings and you wanna find the minimum number of edits that is
+53:51
+needed to take transform S into T. And by edits I mean you can insert,
+53:56
+um, a character like you can insert S, you can delete characters, I can delete this A and you can substitute one character for another.
+54:05
+So you can replace this A with a T. Okay. Um, so here's some examples.
+54:10
+What's the edit distance of cat and cat? It's 0, you don't have to do anything. Cat and dog is 3, cat and at is 1,
+54:16
+you insert the A or insert a C. Um, cat and cat is 1, um,
+54:22
+and a cat and the cats is 4. Okay. So the challenge here is that there are,
+54:30
+ah, quite a different number of ways to insert and delete.
+54:36
+Right, so if you have a string of- that's very long there's just way too many things to like just try out all of them.
+54:43
+Okay, so then, how do we, how do we go about, um, coming up with a solution?
+54:49
+So any ideas? Yeah. [inaudible] simplify the output in terms of saying that
+55:00
+the substitution tells us we considered [inaudible] deletion peoples who considered a substitution or vice-versa by saying like an empty character.
+55:09
+Yeah, yeah. So let's try to simplify [NOISE] the, the, the problem a bit. And building up on your what you, um, what was said.
+55:17
+So, um, one thing to note is that okay,
+55:22
+where so the general principle, let me just write the general principle,
+55:28
+um, is to, you know, reduce the problem to
+55:33
+a simpler problem because then you can hopefully solve- it is easier to solve,
+55:39
+and then you can maybe keep on doing that until you get something that's trivial. Okay. So there's maybe two observations we can make.
+55:47
+One is that well, we're technically saying we can, um, you know, insert into S right but if we insert into S,
+55:56
+it makes the problem kind of larger in some sense, right? I mean that's not, that's not good. That's not reducing the problem.
+56:02
+But, but whenever we insert into S, um, we probably want to insert things which are in
+56:08
+T. We wanna like cancel something out, right? So we wouldn't insert a K there for any reason. We probably wanna insert a S in which case no S
+56:17
+matches that and then we've reduced that problem, right? So we can actually think about, you know,
+56:23
+inserting into S to S as equivalent to kind of deleting from,
+56:31
+um, from T. Okay, does that make sense?
+56:37
+All right. So another observation we can make is that,
+56:43
+you know, we can start inserting anywhere. We can start inserting here and then jump over here and to this.
+56:49
+But this just introduces a lot of, um, you know, ways of doing it which all kind of result in the same answer.
+56:56
+So why don't we just start more systematically at one end and then just proceed and try to chisel-off the problem,
+57:04
+um, kind of let's say from the end. Okay, so start at the end?
+57:16
+Okay, so, so now we have this problem and to draw a problem in a little box here.
+57:27
+Um, so let's start at the end. Yeah, question. What's the reasoning used to reach that principle start at the end?
+57:34
+[NOISE]. [NOISE] the question is why are we starting at the end as oppo- well,
+57:40
+the idea is that if you start at the end then you have kind of a more systematic and consistent way of,
+57:46
+you know, reducing the problem. So you don't have to think about all the permutations of where I can delete and substitute.
+57:52
+Why is it more systematic to go from the right to the left than from the left to the right? We can also do it left to right.
+57:57
+So the end or the start is both fine. This is just- I just picked the end. Yeah.
+58:06
+Are we not starting at the end and then give us the optimal strategy? Yeah, the question is how do we know that starting,
+58:13
+um, at one end can give you the optimal strategy? Um, so, you know,
+58:19
+if you wanted to prove this more rigorously there's some work but, um, I'll just try to give you a,
+58:25
+you know, an intuitive answer. Um, suppose you didn't start at the end, and you just made a sequence of steps like I insert here,
+58:33
+I delete here, and then I went over here and um, did all those operations to S. I
+58:39
+could have equivalently also just sorted those by, you know, where it was happening and then just proceeded from
+58:45
+one end to the other, and I would arrive at the exact same answer. So without loss of generality,
+58:50
+I can start at that. Any other questions?
+59:00
+Okay. So yeah. Instead of doing this wouldn't the more viable [NOISE] approach be that
+59:07
+trying to recognize some patterns instead of doing this. I think between the two strings "s" and "t" like some form of- some sort of
+59:15
+[NOISE] pattern [inaudible] string. Yeah. So the question is, maybe you can recognize some patterns.
+59:24
+Uh, it's like okay, oh, cat. That's- that's- maybe those should be lined up. Um, I guess these examples are chosen so that these patterns exist,
+59:32
+but we want to solve the problem for cases where, um, the pattern might not be obvious. So it could be- we want to work it for- it to work for all strings.
+59:41
+Maybe there is no pattern, and we still would want to- kind of an efficient algorithm to do it. Yeah.
+59:47
+Can't we just like use dynamic programming? Like we go one by one, there was always like [inaudible] -
+59:53
+Yeah. Either we're doing, um, substitution, or, um, otherwise it's like the same character. Or we have to insert-
+1:00:02
+Yeah. - um, and then we keep going, and you just like [NOISE] remember each like to- to strings that we have at one point-
+1:00:09
+Uh-huh. -so that if we calculated that we don't have to do it again. Yeah. Yeah. That's it. Yeah. Yeah. Yeah. Great idea.
+1:00:15
+Let's do dynamic programming. Um, so that's what I'm kind of trying to build up from- uh, build up to.
+1:00:21
+Okay so, um, so if you look at this- so dynamic programming is a kind of
+1:00:27
+a general technique that essentially allows you to express this more complicated problem in terms of a simpler problem.
+1:00:33
+Uh, so let's start with this problem. If we start at the end, um, if the two match then, well we can just immediately, um, you know,
+1:00:41
+delete these two and that's- it's gonna be the same, right? So we can get- we are gonna get some free rides there.
+1:00:47
+Okay, but when they differ, um, now we have many options.
+1:00:52
+So what we could- what could we do? Well, we could, um, um, you know substitute.
+1:00:59
+Okay, we can change the "t" to an "s". So what does that leave us with? So I can do a cat,
+1:01:05
+[NOISE] "t" is the- the cat,
+1:01:12
+the- [NOISE] Okay, so I can substitute.
+1:01:18
+[NOISE] Um, [NOISE] okay.
+1:01:25
+Um, what else can I do? [NOISE] Someone say something I can do. [NOISE] So I can insert,
+1:01:34
+um, insert where into- [OVERLAPPING]
+1:01:40
+So I can insert an "s", right? Yes. [NOISE] But that's the same as, you know, [inaudible] deleting from "t". So by, uh- you can basically also just delete this "s".
+1:01:48
+Um, so this is our cat,
+1:01:53
+[NOISE] and I deleted this "s" from "t".
+1:02:02
+Okay, so this is, um, let's call it, uh, you know,
+1:02:08
+um, I guess let's call this insertion- it's technically insertion [NOISE].
+1:02:17
+And then finally what can I do? [NOISE] I can also remove "t".
+1:02:28
+So [NOISE] a, ca, the, cats.
+1:02:36
+Okay, so this is delete. [NOISE] And right now you're probably looking at this like, well, obviously, you know,
+1:02:41
+you sho- you should do this one. But in general it's hard to tell. What if I just give you some arbitrary strings,
+1:02:46
+you know, who knows what the right answer is. Um, so in general how do you pick? Yeah.
+1:02:54
+In the second one, the "t" is supposed to be for cats. [NOISE] [inaudible]
+1:03:00
+You mean this one? Yeah. So here I inserted an "s", right? But then because there's two s's here,
+1:03:07
+I just canceled them out and [NOISE] what was left [inaudible] So you can think about this as really deleting from-
+1:03:14
+What if I'm considering [NOISE] [inaudible] Like in the original problem you said we're transferring "s" to "t".
+1:03:21
+Yeah. Yeah. Yeah. So, um, um, because of this I'm kind of trying to re-frame the [NOISE] problem a little bit. Okay,
+1:03:28
+so which one should I choose? Yeah. What about the substitution the other way? Um, the substitution the other way meaning change-
+1:03:38
+"s" to "t". Sorry there's too many s's and t's here which [LAUGHTER] is going to be a bit unfortunate.
+1:03:45
+And then replace the last s in cats with "t". Oh, you could- How do we eliminate that [inaudible] [NOISE]
+1:03:53
+Um, that's- you can think about that as kind of equivalent. So, if you identify two letters that you want to make the same,
+1:04:00
+then [NOISE] you could- you can replace the one to be the other,
+1:04:05
+or the other to be that. I mean if- officially we've been kind of framing it as we're only editing "s" which is the reason that it's asymmetric.
+1:04:13
+[NOISE] Okay, so which one of these?
+1:04:18
+Door "a" door "b" or door "c"? Yeah. Would you look [inaudible] between "s" and "t" for
+1:04:25
+every step [NOISE] [inaudible] because there's "cat" in both of them? Yeah, so you could try to look inside but,
+1:04:33
+um, but remember these are- might be really complicated. So you- we wanna kind of a simple mechanized procedure to tell.
+1:04:41
+[NOISE] What about the next letter? The next letter. "t" [inaudible] Um, yeah let's- let's pretend these are-
+1:04:47
+you- you can't see inside them. Okay. [LAUGHTER]. Keep going with each of the different cases.
+1:04:53
+Yeah, okay, so let's keep on going. [NOISE] So, I'm not going to draw everything, but you can also try to break this down into- maybe there's three actions here,
+1:04:59
+and three actions here. All right. Um, and at the end of the day you hopefully have a problem that's simple enough,
+1:05:06
+that, um, where "s" equals "t' or something then you're done. Um, but then, you know,
+1:05:12
+how- how do I- how do I know? Suppose I've solved this. Suppose if someone just told you, okay, I know this cost,
+1:05:19
+I know this cost, I know this cost. What- what should you do? [inaudible] Yeah, you should take the minimum, right?
+1:05:25
+Like remember we want to minimize the edit distance. So, um, there's three things you can do. Each of them has some costs of doing that action which is, you know, one.
+1:05:34
+Every edit is the same cost. And then there's a cost of, you know, continuing to do whatever you're doing.
+1:05:39
+And so we're just gonna take the minimum over those. Yeah. [inaudible] How do we know that that's,
+1:05:47
+like- that's the maximum amount of distance that we have to take? Yeah, so I was trying to argue that, um,
+1:05:55
+with- if you're going to right to left, it's, uh, without loss of generality. Because if you've- went left to right,
+1:06:01
+or in some other order, you can also replay the edits, um, in order. [inaudible] [NOISE] one letter
+1:06:07
+that you needed one assertion like [inaudible] like upstream. But if you went from like the left it looks like as if you're [inaudible]. [NOISE]
+1:06:19
+Yeah. [inaudible] Okay. Yeah. I think it works. [NOISE] Um, okay, so- so let's, um,
+1:06:26
+try to code this up and see if we can make this program work. Okay, so, um, I'm gonna do editDistance.
+1:06:35
+Can everyone see this? Okay, so, um, so I'm gonna define a function that takes two strings,
+1:06:43
+and then I'm going to um, define a recurrence. So, recurrences are- are,
+1:06:50
+I guess, one word I haven't really used, but this is really the way you should th- kind of think about, uh, dynamic programs, and this idea of taking complex problems and breaking it down.
+1:06:59
+It's gonna show up, in you know, search problems, MDPs, and, you know, games. So, I guess it's something that you should really be comfortable with.
+1:07:08
+So, let's um, define recurrence, uh, as follows.
+1:07:15
+Um, so remember at any point in time, I have, uh, let's say a sub problem,
+1:07:21
+and since I'm going right to left, I'm only considering the first, um, "m" letters of "s" and the first letter "n" letters of "t".
+1:07:29
+Okay, so recurse is going to return the minimum edit distance between two things,
+1:07:36
+the first "m" letters of "s", and the first "n" letters of "t".
+1:07:42
+Um, I'm gonna post this online so you guys don't have to, like, copy- try to copy this. Um, okay, so, um,
+1:07:51
+okay, suppose I'm gonna- I'm gonna define this function. Uh, if I have this function what should I return?
+1:07:59
+Recurse of-. [inaudible]
+1:08:06
+So "m" is an integer, right? So "n" is an integer,
+1:08:11
+so I'm going to return the length of "m" and the length of "n". Okay, so that's kind of, uh,
+1:08:16
+the initial state. [OVERLAPPING] Sorry. Yup. Okay. Um, All right.
+1:08:26
+So now you need to fill out this function. Okay, so let's- let's um, consider a bunch of cases.
+1:08:33
+So here's some easy cases. Suppose that, um, "m" is zero, right?
+1:08:39
+So I have- comparing an empty string with something that has "n" letters. So, what should the cost of that be?
+1:08:45
+[NOISE] I heard some mumbling.
+1:08:51
+[OVERLAPPING]. It should be "n" [NOISE] and symmetrically if "n" is 0 then result should be "m",
+1:08:57
+um, and then if now we come to the kind of initial case that we consider which is the end [NOISE] match a match.
+1:09:06
+So, if "s" um, the last letter of "m",
+1:09:11
+you know, this is 0-based indexing. Um, so that's why there's a minus 1.
+1:09:16
+So, this matches. [NOISE] Then what should I do?
+1:09:22
+[NOISE] So, now we reduce this to a sub problem, right?
+1:09:28
+[inaudible] So, I have "m" minus 1 and "n" minus 1. Okay. And now comes the fun case which we looked at.
+1:09:37
+So there's- um, in this case the last letter doesn't match. So, I'm gonna to have to do some sort of edit, can't just let it slide. Yeah. Question.
+1:09:44
+Would you- do you need a full "s" to "t" compare or "s" through "m" and then "t" through "n" to compare?
+1:09:52
+Worse than doing a full s, a compare. [OVERLAPPING] rather than waiting until, um, first-
+1:10:00
+Yeah. -stream at the last slide than that. There- there's probably a way you can make this more efficient. I'm just gonna try to get the basic thing in there.
+1:10:07
+Okay. So substitution. Okay. So what's a cost of a substitution? I pay 1 to do the substitution,
+1:10:13
+but and in- as a reward I get to, um, reduce the problem to n minus 1 and n minus 1, right?
+1:10:21
+So I lop off a letter from s and I lop off a letter from t. So what else can I do?
+1:10:27
+So I can, um, you know, delete. [NOISE] So that also costs 1.
+1:10:33
+And when I delete, I delete from s and then n. So this remains the same.
+1:10:40
+And then now you can think about the insertion, um, is n minus 1, right?
+1:10:49
+Because remember insertion into s is deletion from t, that's why this is n minus 1. Okay. And then the result is just gonna be a minimum of,
+1:10:59
+uh, all these things. Okay. Return result.
+1:11:07
+Okay. So just, uh, and then, how do I call this function? Um, a cat, the cats.
+1:11:16
+[NOISE] So let me print out the answer. Um, let's see if it works.
+1:11:28
+Okay. Print out 4. Therefore, I conclude it works now. [LAUGHTER] I mean if you were doing this, uh,
+1:11:35
+you would probably want to test it some more, but in the interest of the time, I'll kind of move on. So let me just kinda refresh.
+1:11:41
+Okay. So I'm computing this at a distance between two strings and we're gonna define a recurrence that works on sub problems,
+1:11:48
+where the sub problem is the first m letters of s and the first n letters of t. And the reason I'm using integers instead of,
+1:11:56
+um, strings is to avoid like string copying, um, implementation detail, but it doesn't really matter.
+1:12:02
+Um, so base cases. So you wanna reduce your problem to a case where it's- it's trivial to solve.
+1:12:10
+Um, and then we have the last letter matches. And then we have a letter doesn't match and you have to pay some sort of cost.
+1:12:16
+I don't know which action to take. So I'm gonna take them, you know, minimum of all of them. And then I call it by just calling, you know, recurse.
+1:12:24
+Okay. So this is great, right? So now I have a working thing. [NOISE] Um, let's try another test case.
+1:12:31
+So I'm gonna make this. Um, so if I do times 10,
+1:12:36
+this, uh, basically, uh, replicates this string 10 times. So it's a- it's a long string-longer string.
+1:12:43
+[NOISE] Okay. So now I'm gonna run it. [OVERLAPPING] Maybe I shouldn't wait for this.
+1:12:54
+Is there a base case? Um, there is a base case, I- I think that it expanded- it's- what- what's wrong with this code?
+1:13:00
+Very slow. Um, yes, it's very slow. Why is it slow? [BACKGROUND] Yeah, right?
+1:13:08
+So- so I'm recursing. [NOISE] Every point recurses three times. So you kind of get this exponential, you know, blob.
+1:13:15
+Um, so there's kind of a- how do you solve this problem? [BACKGROUND] Yeah.
+1:13:24
+You can memo I think I heard the word memoize, which is another way to kind of think about. Memorize plus, um, I guess,
+1:13:30
+recurrences is dynamic programming, I guess. Um, so I'm gonna show you kind of this,
+1:13:38
+um, way to do it which is pretty, uh, uninvasive. Um, and generally I recommend people.
+1:13:44
+Well, get the slow version working [NOISE] and then try to make it faster. Don't try to be, you know,
+1:13:50
+too slick at once. Okay. So I'm gonna make this cache, right?
+1:13:55
+And I'm gonna say if m, n is in the cache, then I'm gonna return whatever's in the cache.
+1:14:02
+So cache is just a dictionary mapping. Um, the key which is, um,
+1:14:07
+identification of the problem I'm interested in solving, and the result which is the answer that I computed.
+1:14:12
+So if I already computed it, I don't need a computer again, just return it. And then at the end, if I have to compute it,
+1:14:19
+then, um, I have to put this in the cache. [NOISE] Okay?
+1:14:29
+So three lines or four lines, I guess. Yeah. [BACKGROUND] [NOISE] Yeah.
+1:14:36
+That's a great point. Uh, this should be outside of the recurse object. Yeah. Glad you guys are paying attention.
+1:14:43
+Um, otherwise, yeah, it would do basically nothing. Any other mistakes? [LAUGHTER] Yeah.
+1:14:50
+Um, there is also function decorators that like implement memoizing for you. In this class, are you okay if we use that or would you
+1:14:56
+rather us like make our own in this case? Um, you can use the deco- you can be fancy if you want.
+1:15:02
+Okay. Um, yeah. But- but I think this is, you know, pretty transparent. Easy for learning purposes.
+1:15:08
+Okay. So let's run this. So now it runs instantaneously as opposed
+1:15:14
+to- I actually don't know how long it would have taken otherwise. Okay. And sanity check for t is
+1:15:22
+probably the right answer because there's four was the original answer and multiply by 10. Okay. any other questions about this?
+1:15:30
+[NOISE] So this is an example of, you know, kind of basic, uh, dynamic programming which are, uh,
+1:15:37
+you'd solve a problem trying to formulate it as a recurrence of a complicated problem in terms of smaller problems.
+1:15:44
+Um, and like I said before this is gonna kind of show up, um, um, over and over again in this class.
+1:15:52
+Yeah. [BACKGROUND] Yeah.
+1:16:00
+So the question is why does this reduce, uh, redundancy. [NOISE] Is that right? Um, so maybe I can do it kinda pictorially.
+1:16:07
+Um, if you think about, let's say, you have a, um, a problem here, right?
+1:16:13
+And this gets, um, you know, reduced to, um, um, I'm just making kind of a arbitrary, um, diagram here.
+1:16:23
+So this problem gets reduced to these two. And this problem gets reduced to these two, um, and- and so on, um, right?
+1:16:32
+So if you think about- if you didn't have memoization, you will just be paying for the number of paths.
+1:16:40
+Every path is a kind of you have to compute from scratch. Whereas, if you do memoization,
+1:16:46
+you pay the number of nodes here, which a lot of this has shared like here.
+1:16:51
+Um, you know, once you compute this, no matter if you're coming from here or here, you're kind of using the same value.
+1:16:58
+Okay. So let's- let's move on. So the second problem, um,
+1:17:04
+we're gonna talk about is, uh, has to do with continuous optimization.
+1:17:09
+[NOISE] And the motivating question here is how do you do, um, regression?
+1:17:14
+Which is a kind of a bread and butter of, um, you know, machine learning here. [NOISE]
+1:17:21
+So here we go.
+1:17:28
+Regression. Okay. So imagine you get some points.
+1:17:36
+Okay, so I give you a point which is 2, 4.
+1:17:43
+Then I give you another point, let's say 4, 2.
+1:17:50
+And so these are data points, you want to, let's say, predict housing price from,
+1:17:56
+you know, square footage or something like that. You want to predict health score from, um, your blood pressure and some other things.
+1:18:03
+So this is pretty common in machine learning. And the question is how do you fit a line?
+1:18:10
+I'm going to consider the case where your line has to go through the origin, just for simplicity.
+1:18:16
+Um, so you might want to like find, you know, a fit. Two points is maybe kind of a little bit degenerate,
+1:18:23
+but that's the simple example we are going to work with. In general you have lots of points and you want this to fit the line that best kind of,
+1:18:30
+uh, is close to the points. Okay, so how do you do this?
+1:18:36
+So there's a principle called least squares, which says, well,
+1:18:43
+if you give me a line which is given in this case by a slope w,
+1:18:49
+I'm going to tell you how bad this is. And badness is measured by looking at all the training points,
+1:18:57
+and looking at these distances. Right. So here I have, you know,
+1:19:04
+this particular, uh, a particular, let's say point x_i.
+1:19:09
+If I hit it with a w, then I get, basically the, uh, you know, the y-intercept here,
+1:19:17
+not the y-intercept but the- like the y value here. That's my prediction. The real value was y_i,
+1:19:24
+which is, you know, up here. And so if I look at the difference, I want that difference to be zero.
+1:19:30
+Right. So in, in least squares, I square this, and I say, I want this to be as small as possible, right.
+1:19:37
+Now, this is only for one point. So I'm going to look at all the points. Let's suppose I have n points,
+1:19:44
+and that's a function that I'm going to call f of w,
+1:19:50
+which basically says, for a given weight vector, which is a slope, give me a number that characterizes how bad of a fit, um, this is.
+1:20:00
+Where 0 means that I fit everything perfectly, and large numbers mean that I fit poorly.
+1:20:06
+Okay? All right. So, so that's your regression.
+1:20:12
+So how do I solve a regression problem? So how do I optimize this?
+1:20:19
+Can you do this in your head? So if I actually had these two points, what should w be?
+1:20:32
+Okay, it doesn't matter. We'll, we'll compute it. So how do we go about doing this?
+1:20:44
+So one principle, which is maybe another general takeaway is, abstract away the details.
+1:20:53
+Right. Um, this is also true with the dynamic programming, but sometimes, you know,
+1:20:58
+you get- if you're too close to the board, and you're looking at, oh man, these, these points are here and I need to fit this line.
+1:21:03
+How do I do that? You kind of get kind of a little bit stuck.
+1:21:09
+Why don't we think about this f, as say some function? I don't, I don't really care what it is.
+1:21:15
+And let's plot this function. Okay. So now this is a different plot. Now, this is, ah, the weight,
+1:21:22
+and this is f of w. [NOISE] Always label your axes.
+1:21:27
+And let's say this function looks like this. Okay. So which means that for this slope,
+1:21:35
+I pay this, you know, amount, for this slope, I pay this amount and, and so on.
+1:21:40
+And what I want to do, I want to minimize f of w, which means, I want to find,
+1:21:46
+um, the w which, um, has the least value of f of w, right?
+1:21:53
+Question? Okay. So you take the derivative.
+1:21:59
+So what is the derivative giving you? It tells you where to move, right?
+1:22:05
+So if you look over here, so you can- in general, you might not be able to get there directly,
+1:22:11
+in this actually particular case you can because you can solve it in closed form, but I'm going to try to be more general.
+1:22:17
+Um, so you start here. This, this derivative tells you, well, the function is decreasing if you move to the right.
+1:22:25
+So then you should move to the right. Whereas over here, if you end up over here, the derivative says, the function is decreasing as we move to the left.
+1:22:31
+So you should move to the left, right? So what I'm going to introduce is this,
+1:22:39
+uh, algorithm called gradient descent. It's a very simple algorithm. It basically says, start with some place,
+1:22:48
+and then compute the derivative, and just follow your nose. Right? If the derivative says it's negative,
+1:22:54
+then just go this way. And now you're on a new point, you compute the derivative again, you descend, and now you compute it again.
+1:23:01
+And then maybe you compute the derivative and it says keep on going this way and maybe you overshoot, and then you come back.
+1:23:07
+And then, you know, hopefully you'll end up at the minimum. Okay. So let's try to see what this looks like in code.
+1:23:22
+So gradient descent is one of the simplest algorithms, but it really underlies
+1:23:29
+essentially all the algorithms that you people use in machine learning. So let's do points.
+1:23:35
+We have two points here. Um, and I'm going to define, um, some functions.
+1:23:42
+Okay, so f of w, so what is this function? So I'm going to sum over all the different,
+1:23:50
+um, you know, and basically at this point it's converting math into Python. So I'm going to look at all the points.
+1:23:59
+So for every x, y, what the model predicts is w times x minus y.
+1:24:06
+And if I square that, that's going to be the error that I get on that point.
+1:24:13
+Then, if I sum over all these errors then I get my objective function.
+1:24:18
+Okay. Array of- so yeah.
+1:24:27
+So you can put array here if you want, but it doesn't matter. It's, it's actually fine.
+1:24:33
+Okay. So now I need to compute the derivative. So how do you compute the derivative?
+1:24:39
+So if your calculus is a little bit rusty, you might want to brush up on it. So what's the derivative?
+1:24:44
+Re- remember we're taking the derivative with respect to w, right? There's a lot of symbols here. Always remember what you're taking derivative with respect to.
+1:24:51
+Okay. The derivative of the sum is the sum of the derivative. So now I need to take the derivative of this.
+1:24:58
+Right. And what's the derivative of this? Something squared, um, you bring the two down here,
+1:25:05
+and now you multiply by the derivative of this. And what's the derivative of this?
+1:25:10
+Should be x. Right? Because this is a- y, this is a constant,
+1:25:15
+and w derivative- w times x with respect to w is x. Okay. So that's it.
+1:25:21
+Okay, so now let's do gradient descent. Let's initialize with w equal 0.
+1:25:28
+Then I'm going to just, um, you know, iterate a hundred times. Normally, you would set some sort of stopping condition,
+1:25:35
+but let's just keep it simple for now. Okay, so for every moment, I'm going to- I have a w,
+1:25:42
+I can compute the value of the function, and also take the gradient of the derivative.
+1:25:48
+Gradient just means derivative in higher di- dimensions, which we'll want later.
+1:25:53
+Um, okay. And then, what do I do? I take, uh, w,
+1:26:00
+and I subtract the, the gradient. Okay. So remember- okay, I'll be out of here.
+1:26:10
+Okay. So, uh, I take the gradient. Remember I want to have the gradient.
+1:26:17
+Uh, gradient tells me where the function is increasing, so I want to move in the opposite direction. And eta is just going to be this, uh,
+1:26:24
+step size to, um, keeping things under control. We'll talk more about that next time. Okay, so now, I want to do, print out what's going on here.
+1:26:33
+So iteration, print out the function, and t value.
+1:26:42
+Okay. All right, so let's compute the gradient.
+1:26:50
+And, um, so you can see that the iteration, we first start out with w equal 0.
+1:26:55
+Then it moves to 0.3, then it moves to 0.79999999 and then it looks like it's converging into 0.8.
+1:27:03
+And meanwhile, the function value is going down from 20 to 7.2 which happens to be the optimal answer.
+1:27:09
+So the correct answer here is 0.8. Okay, so that's it. Next time we're going to keep,
+1:27:15
+uh, we're going to start on the machine learning lecture.
+
