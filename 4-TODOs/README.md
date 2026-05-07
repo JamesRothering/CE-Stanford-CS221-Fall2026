@@ -18,5 +18,5 @@ After TODOs, set up a PyCharm project with uv for CS221 assignments. Track progr
 
 ## Course Notes
 
-- Prerequisites: CS103/103B/X, CS106B/X, CS109, CS161.[web:5]
-- Topics: Search, MDPs, ML, logic.[web:10]
+- Prerequisites: CS103/103B/X, CS106B/X, CS109, CS161.
+- Topics: Search, MDPs, ML, logic.
